@@ -3,7 +3,7 @@ go:
 - release
 - tip
 script:
-- go test -v .*go
+- go test -v *.go
 - make build
 deploy:
   provider: releases
