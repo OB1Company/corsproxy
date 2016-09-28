@@ -1,8 +1,16 @@
 language: go
 go:
- - 1.5.1
- - release
- - tip
+- 1.5.1
+- release
+- tip
 script:
- - go test -v ./...
- - make build
+- go test -v ./...
+- make build
+deploy:
+  provider: releases
+  api_key:
+    secure: sBS6kdOElEuFNV5tggxjrzC6F2Xdmzv6bxuMqIDOEDlvT+eBzrKY50SHGpxW9bnCvPWftpHR6KIldjKAAsY/dKbze4z8CgpCfa4ZqJjxJ8aAsj89jUmM4eQWmUw0J1JeXXHsMuDiqjzFu1oL81qzD6YrNIHLqZrkRFFpcgM9Q1++EGYmgapcY0uDZno/qhkVY9RIBXlMdKHWATZ3zSbmuKwYILZ4hMQIyZamyqKKOkHMc6O9EaF87uy7f28XVxW9QBdVyeU9jdMcupQWW+oWDzkACfX0w8Gf5Yn7YlcwOv3ypm/4xFRekpRAIDeHueDs6FWVcfLFGCdcdtqMnzJ3GoIEs1kfbFW7UiKfTBEVdSvEHDR5Z7XOmJ4ZlaAJM1W/SekPyPiTBmutc0ybrCt0/xBorjMdNe/3pAq/Pev7jPqVFgwQLH+mTIokSkL5gLkLeO2JefwOc/6vcf9OdU8XaWFidluiYkbY8om8EXNrGlrqhXcf1cg/l1g3ovvC7y4QuaTV71V8L5YAL3YUIVGtX8VtFvPYjQ2uv/oQGSTNyZXZgpi61aLp1uAfIObzUTf7gRkt9NwcwR8qLgx1NbiJrg/1s/fx2dWD6rpbWXMnI32Ys6+4te7DSt+1XSuE2XE1FWSuMDmyu/vNDESxAN0q8rKItLuY5CgGvuvcZDF1+ic=
+  file: corsproxyd
+  skip_cleanup: true
+  on:
+    tags: true
