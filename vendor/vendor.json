@@ -1,0 +1,31 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "YhswBYH9lPkmLN5kVz3nqlu6K5Q=",
+			"path": "github.com/gocraft/health",
+			"revision": "25b40f8580168c1f905a6dba35d471cdc51ca629",
+			"revisionTime": "2016-07-11T12:47:28Z"
+		},
+		{
+			"checksumSHA1": "AGGHyqsM4MN/lfBGXguLtb6xd38=",
+			"path": "github.com/gocraft/health/stack",
+			"revision": "25b40f8580168c1f905a6dba35d471cdc51ca629",
+			"revisionTime": "2016-07-11T12:47:28Z"
+		},
+		{
+			"checksumSHA1": "v5hP3KStqhaz1ejU3Y2ndUrL9nA=",
+			"path": "github.com/gocraft/web",
+			"revision": "c8ca29bc8a1cec97abe95c662e29dd8d31aff6e3",
+			"revisionTime": "2016-07-11T12:45:36Z"
+		},
+		{
+			"checksumSHA1": "/vsDm89CKwk3fa8eRY0LG8Y0RYo=",
+			"path": "github.com/jarcoal/httpmock",
+			"revision": "145b10d659265440f062c31ea15326166bae56ee",
+			"revisionTime": "2015-08-01T14:35:02Z"
+		}
+	],
+	"rootPath": "github.com/OB1Company/corsproxy"
+}
