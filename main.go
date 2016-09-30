@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"net/url"
 	"os"
 	"time"
 
@@ -62,22 +61,12 @@ func (c *Context) HealthCheck(rw web.ResponseWriter, r *web.Request, next web.Ne
 	c.job.Complete(health.Error)
 }
 
-// ProxyRequestHandler takes makes a request to the `url` query param and sends
-// the reponse to the caller
-func (c *Context) ProxyRequestHandler(rw web.ResponseWriter, r *web.Request) {
-	// Make sure we have a URL to request
-	url, err := url.Parse(r.PathParams["url"])
-	if err != nil {
-		c.err = err
-		c.job.EventErr("get_url_param", c.err)
-		return
-	}
+// StatusRequestProxyHandler gets a status from ob-relay
+func (c *Context) StatusRequestProxyHandler(rw web.ResponseWriter, r *web.Request) {
+	url := "https://" + r.PathParams["ip"] + ":8080/status"
 
 	// Perform the request
-	url.Scheme = "https"
-
-	// Perform the request
-	resp, err := HTTPClient.Get(url.String())
+	resp, err := HTTPClient.Get(url)
 	if err != nil {
 		c.err = err
 		c.job.EventErr("request_url", c.err)
@@ -113,8 +102,7 @@ func newRouter() *web.Router {
 		Middleware(web.LoggerMiddleware).
 		Middleware(web.ShowErrorsMiddleware).
 		Middleware((*Context).AddCORSHeaders).
-		Get("/:url", (*Context).ProxyRequestHandler).
-		Get("/", (*Context).ProxyRequestHandler)
+		Get("/status/:ip", (*Context).StatusRequestProxyHandler)
 }
 
 func newStream() *health.Stream {
