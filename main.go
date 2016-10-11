@@ -121,15 +121,8 @@ func (c *Context) StatusRequestProxyHandler(rw web.ResponseWriter, r *web.Reques
 
 func newUpdateNodeStateMiddleware(db *sql.DB) (middlewareFunc, error) {
 	return func(c *Context, rw web.ResponseWriter, req *web.Request, next web.NextMiddlewareFunc) {
-		c.nodeStatus = "INSTALLING_OPENBAZAAR_RELAY"
-
 		// Execute handler
 		next(rw, req)
-
-		// We're done if we have no data
-		if c.nodeIP == "" || c.nodeStatus == "" {
-			return
-		}
 
 		// Update state
 		update := "INSERT OR REPLACE INTO nodes (ip, state, created_at) values(?, ?, CURRENT_TIMESTAMP)"
