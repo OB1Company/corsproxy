@@ -23,7 +23,6 @@ type Context struct {
 	job        *health.Job
 	err        error
 	nodeStatus string
-	nodeIP     string
 }
 
 // StatusResponse represents the response from the ob-relay status endpoint
@@ -103,7 +102,6 @@ func (c *Context) StatusRequestProxyHandler(rw web.ResponseWriter, r *web.Reques
 	}
 
 	c.nodeStatus = status.Status
-	c.nodeIP = r.PathParams["ip"]
 
 	_, err = rw.Write(body)
 	if err != nil {
@@ -115,6 +113,8 @@ func (c *Context) StatusRequestProxyHandler(rw web.ResponseWriter, r *web.Reques
 
 func newUpdateNodeStateMiddleware(db *sql.DB) (middlewareFunc, error) {
 	return func(c *Context, rw web.ResponseWriter, req *web.Request, next web.NextMiddlewareFunc) {
+		c.nodeStatus = "INSTALLING_OPENBAZAAR_RELAY"
+
 		// Execute handler
 		next(rw, req)
 
@@ -134,7 +134,7 @@ func newUpdateNodeStateMiddleware(db *sql.DB) (middlewareFunc, error) {
 			return
 		}
 
-		_, err = updateStmt.Exec(c.nodeIP, c.nodeStatus)
+		_, err = updateStmt.Exec(req.PathParams["ip"], c.nodeStatus)
 		if err != nil {
 			c.job.EventErr("update_node_state.execute", err)
 			return
