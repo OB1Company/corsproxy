@@ -107,7 +107,7 @@ func newRouter() *web.Router {
 
 func newStream() *health.Stream {
 	s := health.NewStream()
-	s.AddSink(&health.JsonWriterSink{os.Stdout})
+	s.AddSink(&health.WriterSink{os.Stdout})
 	return s
 }
 
