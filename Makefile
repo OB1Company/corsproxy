@@ -3,7 +3,7 @@ BINARY=corsproxyd
 .DEFAULT_GOAL: $(BINARY)
 
 $(BINARY):
-	go build -o ${BINARY} main.go
+	go build -o ${BINARY} ./*.go
 
 install:
 	go install ./...
