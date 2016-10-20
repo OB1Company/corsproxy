@@ -16,8 +16,8 @@ import (
 const nodeTableSchema = `CREATE TABLE IF NOT EXISTS nodes (
   ip TEXT NOT NULL,
   state TEXT NOT NULL,
-  created_at DATETIME NOT NULL,
-  updated_at DATETIME NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY(ip, state)
   );`
 
